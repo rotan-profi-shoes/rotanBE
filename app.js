@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const authRoute = require('./routes/auth');
-const postRoute = require('./routes/posts');
+const shoesRoute = require('./routes/shoes');
 
 dotenv.config();
 var cors=require('cors');
@@ -18,8 +18,8 @@ mongoose.connect(
 
 app.use(express.json());
 
-// //Route middlewares
+// Route middlewares
 app.use('/api/user', authRoute);
-app.use('/api/post', postRoute);
+app.use('/api/shoes', shoesRoute);
 
-app.listen(3000, () => console.log('Server is upppp'));
+app.listen(3000, () => console.log('Server is up!'));
