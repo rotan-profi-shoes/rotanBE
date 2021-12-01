@@ -110,76 +110,7 @@ const colorTypes = [
     },
 ];
 
-const sizesTypes = [
-    {
-        id: '6001',
-        name: '36',
-    },
-    {
-        id: '6002',
-        name: '37',
-    },
-    {
-        id: '6003',
-        name: '38',
-    },
-    {
-        id: '6004',
-        name: '39',
-    },
-    {
-        id: '6005',
-        name: '40',
-    },
-    {
-        id: '6006',
-        name: '41',
-    },
-    {
-        id: '6007',
-        name: '42',
-    },
-    {
-        id: '6008',
-        name: '43',
-    },
-    {
-        id: '6009',
-        name: '44',
-    },
-    {
-        id: '6010',
-        name: '45',
-    },
-    {
-        id: '6011',
-        name: '46',
-    },
-    {
-        id: '6012',
-        name: '47',
-    },
-    {
-        id: '6013',
-        name: '48',
-    },
-    {
-        id: '6014',
-        name: '49',
-    },
-    {
-        id: '6015',
-        name: '50',
-    },
-    {
-        id: '6016',
-        name: '51',
-    },
-    {
-        id: '6017',
-        name: '52',
-    },
-];
+const sizesTypes = ['35', '36', '37', '38', '39', '40', '41'];
 
 const modificationTypes = [
     {
@@ -277,5 +208,42 @@ router.post('/add', verify, async (req, res) => {
         res.status(400).send(err);
     };
 });
+
+router.get('/gender-types', verify, async (req, res) => {
+    res.send(genderTypes);
+});
+
+router.get('/form-types', verify, async (req, res) => {
+    res.send(formTypes);
+});
+
+router.get('/shoes-class-types', verify, async (req, res) => {
+    res.send(shoesClassTypes);
+});
+
+router.get('/protection-class-types', verify, async (req, res) => {
+    res.send(protectionClassTypes);
+});
+
+router.get('/color-types', verify, async (req, res) => {
+    res.send(colorTypes);
+});
+
+router.get('/sizes-types', verify, async (req, res) => {
+    res.send(sizesTypes);
+});
+
+router.get('/modification-types', verify, async (req, res) => {
+    res.send(modificationTypes);
+});
+
+router.get('/material-types', verify, async (req, res) => {
+    res.send(materialTypes);
+});
+
+router.get('/sole-types', verify, async (req, res) => {
+    res.send(soleTypes);
+});
+
 
 module.exports = router;
