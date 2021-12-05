@@ -51,6 +51,15 @@ const shoeSchema = new mongoose.Schema({
         type: {},
         required: true,
     },
+    img1: {
+        type: String,
+        required: true,
+        min: 6,
+    },
+    img2: {
+        type: String,
+    },
+
 });
 
 module.exports = mongoose.model('Shoe', shoeSchema);

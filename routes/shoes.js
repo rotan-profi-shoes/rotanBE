@@ -199,6 +199,8 @@ router.post('/add', verify, async (req, res) => {
         modification: modification,
         material: material,
         sole: sole,
+        img1: req.body.img1,
+        img2: req.body.img2,
     });
 
     try {
@@ -207,6 +209,16 @@ router.post('/add', verify, async (req, res) => {
     } catch(err) {
         res.status(400).send(err);
     };
+});
+
+router.get('/', verify, async (req, res) => {
+    const shoes = await Shoe.find();
+
+    try {
+        res.send(shoes);
+    } catch(err) {
+        res.status(400).send(err);
+    }    
 });
 
 router.get('/gender-types', verify, async (req, res) => {
@@ -244,6 +256,5 @@ router.get('/material-types', verify, async (req, res) => {
 router.get('/sole-types', verify, async (req, res) => {
     res.send(soleTypes);
 });
-
 
 module.exports = router;
