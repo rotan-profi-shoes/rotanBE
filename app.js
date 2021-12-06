@@ -10,7 +10,6 @@ var cors=require('cors');
 
 app.use(cors({origin:true,credentials: true}));
 
-
 mongoose.connect(
     process.env.DB_CONNECT, 
     () => console.log('Connnected to DB')

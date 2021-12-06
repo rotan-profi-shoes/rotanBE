@@ -21,15 +21,15 @@ const genderTypes = [
 const formTypes = [
     {
         id: '2001',
-        name: 'Sapogi',
+        name: 'Stiefel',
     },
     {
         id: '2002',
-        name: 'Botinki',
+        name: 'Stiefeletten',
     },
     {
         id: '2003',
-        name: 'Polu botinki',
+        name: 'Halbstiefel',
     },
     {
         id: '2004',
@@ -76,14 +76,14 @@ const shoesClassTypes = [
     },
 ];
 
-const protectionClassTypes = [
+const zertifikatTypes = [
     {
         id: '4001',
-        name: 'Berufsschuhe',
+        name: 'Sicherheitsschuhe nach DIN EN ISO 20345:2011',
     },
     {
         id: '4002',
-        name: 'Sicherhetsschuhe',
+        name: 'Berufsschuhe nach DIN EN ISO 20347:2012',
     },
 ];
 
@@ -138,36 +138,89 @@ const modificationTypes = [
 const materialTypes = [
     {
         id: '8001',
-        name: 'Naturalnaia koja',
+        name: 'Echtleder',
     },
     {
         id: '8002',
-        name: 'SIntetika',
+        name: 'Synthetik',
     },
     {
         id: '8003',
-        name: 'Drogoe',
+        name: 'Spaltleder',
+    },
+    {
+        id: '8004',
+        name: 'Andere',
     },
 ];
 
 const soleTypes = [
     {
         id: '9001',
-        name: '0 (Nulevaia)',
+        name: '0',
     },
     {
         id: '9002',
-        name: 'R (Ruminskaea)',
+        name: 'R',
     },
     {
         id: '9003',
-        name: 'P (Polskaea)',
+        name: 'P',
     },
     {
         id: '9004',
-        name: 'S (Skeater)',
+        name: 'S',
     },
 ];
+
+const upperLeatherTypes = [
+    {
+        id: '9101',
+        name: 'Ökologisches Leder',
+    },
+    {
+        id: '9102',
+        name: 'Echtleder',
+    },
+    {
+        id: '9103',
+        name: 'Velur',
+    },
+    {
+        id: '9104',
+        name: 'Textil',
+    },
+];
+
+const descriptionTypes = [
+    {
+        id: '9201',
+        name: 'Hydrophobes Gewebe, verschleißfest',
+    },
+    {
+        id: '9202',
+        name: 'Spaltleder mit PU Beschichtung',
+    },
+];
+
+const capDescriptionTypes = [
+    {
+        id: '9301',
+        name: 'Thermo-beständig gegen 50 Joule zur Vermeidung von Unfällen',
+    },
+    {
+        id: '9302',
+        name: 'Metall - beständig gegen 200 Joule',
+    },
+];
+
+const soleDescriptionTypes = [
+    {
+        id: '9401',
+        name: 'Abnehmbares antistatisches antibakterielles Mittel aus Polyurethan mit Feuchtigkeitskontrollsystem und Stoßdämpfungssystem',
+    },
+];
+
 
 router.post('/add', verify, async (req, res) => {
     const { error } = shoeValidation(req.body);
@@ -180,11 +233,15 @@ router.post('/add', verify, async (req, res) => {
     const gender = genderTypes.find(gender => gender.id === req.body.gender);
     const form = formTypes.find(form => form.id === req.body.form);
     const shoesClass = shoesClassTypes.find(shoesClass => shoesClass.id === req.body.shoesClass);
-    const protectionClass = protectionClassTypes.find(protectionClass => protectionClass.id === req.body.protectionClass);
+    const zertifikat = zertifikatTypes.find(zertifikat => zertifikat.id === req.body.zertifikat);
     const color = colorTypes.find(color => color.id === req.body.color);
     const modification = modificationTypes .find(modification => modification.id === req.body.modification);
     const material = materialTypes.find(material => material.id === req.body.material);
     const sole = soleTypes.find(sole => sole.id === req.body.sole);
+    const upperLeather = upperLeatherTypes.find(upperLeather => upperLeather.id === req.body.upperLeather);
+    const description = descriptionTypes.find(description => description.id === req.body.description);
+    const capDescription = capDescriptionTypes.find(capDescription => capDescription.id === req.body.capDescription);
+    const soleDescription = soleDescriptionTypes.find(soleDescription => soleDescription.id === req.body.soleDescription);
 
     const shoe = new Shoe({
         sku: req.body.sku,
@@ -192,13 +249,17 @@ router.post('/add', verify, async (req, res) => {
         gender: gender,
         form: form, 
         shoesClass: shoesClass,
-        protectionClass: protectionClass,
+        zertifikat: zertifikat,
         color: color,
         size: req.body.size,
         price: req.body.price,
         modification: modification,
         material: material,
         sole: sole,
+        description: description,
+        upperLeather: upperLeather,
+        capDescription: capDescription,
+        soleDescription: soleDescription,
         img1: req.body.img1,
         img2: req.body.img2,
     });
@@ -233,8 +294,8 @@ router.get('/shoes-class-types', verify, async (req, res) => {
     res.send(shoesClassTypes);
 });
 
-router.get('/protection-class-types', verify, async (req, res) => {
-    res.send(protectionClassTypes);
+router.get('/zertifikat-types', verify, async (req, res) => {
+    res.send(zertifikatTypes);
 });
 
 router.get('/color-types', verify, async (req, res) => {
@@ -255,6 +316,22 @@ router.get('/material-types', verify, async (req, res) => {
 
 router.get('/sole-types', verify, async (req, res) => {
     res.send(soleTypes);
+});
+
+router.get('/upper-leather-types', verify, async (req, res) => {
+    res.send(upperLeatherTypes);
+});
+
+router.get('/description-types', verify, async (req, res) => {
+    res.send(descriptionTypes);
+});
+
+router.get('/cap-description-types', verify, async (req, res) => {
+    res.send(capDescriptionTypes);
+});
+
+router.get('/sole-description-types', verify, async (req, res) => {
+    res.send(soleDescriptionTypes);
 });
 
 module.exports = router;

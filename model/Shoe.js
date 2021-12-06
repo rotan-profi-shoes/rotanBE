@@ -23,7 +23,7 @@ const shoeSchema = new mongoose.Schema({
         type: {},
         required: true,
     },
-    protectionClass: {
+    zertifikat: {
         type: {},
         required: true,
     },
@@ -48,6 +48,22 @@ const shoeSchema = new mongoose.Schema({
         required: true,
     },
     sole: {
+        type: {},
+        required: true,
+    },
+    upperLeather: {
+        type: {},
+        required: true,
+    },
+    description: {
+        type: {},
+        required: true,
+    },
+    capDescription: {
+        type: {},
+        required: true,
+    },
+    soleDescription: {
         type: {},
         required: true,
     },
