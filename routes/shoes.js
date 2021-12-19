@@ -281,7 +281,7 @@ router.get('/', verify, async (req, res) => {
     }    
 });
 
-router.get('/:sku', verify, async (req, res) => {
+router.get('/find/:sku', verify, async (req, res) => {
     const shoes = await Shoe.findOne({ sku: req.params.sku });
 
     try {
