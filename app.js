@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const authRoute = require('./routes/auth');
 const shoesRoute = require('./routes/shoes');
+const sizeRoute = require('./routes/size');
 
 dotenv.config();
 var cors=require('cors');
@@ -20,5 +21,6 @@ app.use(express.json());
 // Route middlewares
 app.use('/api/user', authRoute);
 app.use('/api/shoes', shoesRoute);
+app.use('/api/sizes', sizeRoute);
 
 app.listen(3000, () => console.log('Server is up!'));

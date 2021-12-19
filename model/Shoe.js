@@ -31,14 +31,6 @@ const shoeSchema = new mongoose.Schema({
         type: {},
         required: true,
     },
-    size: {
-        type: {},
-        required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
     modification: {
         type: {},
         required: true,
@@ -74,8 +66,7 @@ const shoeSchema = new mongoose.Schema({
     },
     img2: {
         type: String,
-    },
-
+    }
 });
 
 module.exports = mongoose.model('Shoe', shoeSchema);

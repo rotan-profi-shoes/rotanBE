@@ -110,7 +110,7 @@ const colorTypes = [
     },
 ];
 
-const sizesTypes = ['35', '36', '37', '38', '39', '40', '41'];
+const sizesTypes = ['32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45'];
 
 const modificationTypes = [
     {
@@ -251,8 +251,6 @@ router.post('/add', verify, async (req, res) => {
         shoesClass: shoesClass,
         zertifikat: zertifikat,
         color: color,
-        size: req.body.size,
-        price: req.body.price,
         modification: modification,
         material: material,
         sole: sole,
@@ -266,6 +264,7 @@ router.post('/add', verify, async (req, res) => {
 
     try {
         const savedShoe = await shoe.save();
+
         res.send({ sku: savedShoe.sku });
     } catch(err) {
         res.status(400).send(err);
@@ -274,6 +273,16 @@ router.post('/add', verify, async (req, res) => {
 
 router.get('/', verify, async (req, res) => {
     const shoes = await Shoe.find();
+
+    try {
+        res.send(shoes);
+    } catch(err) {
+        res.status(400).send(err);
+    }    
+});
+
+router.get('/:sku', verify, async (req, res) => {
+    const shoes = await Shoe.findOne({ sku: req.params.sku });
 
     try {
         res.send(shoes);
