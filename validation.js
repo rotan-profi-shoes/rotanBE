@@ -46,7 +46,7 @@ const shoeValidation = (data) => {
 
 const sizeValidation = (data) => {
     const schema = Joi.object({
-        sku: Joi.string().min(3).required(),
+        shoesId: Joi.string().required(),
         sizeValue: Joi.string().required(),
         quantity: Joi.number().required(),
         price: Joi.number().required(),

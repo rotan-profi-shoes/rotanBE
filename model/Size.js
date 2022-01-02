@@ -2,10 +2,9 @@ const { string } = require('@hapi/joi');
 const mongoose = require('mongoose');
 
 const sizeSchema = new mongoose.Schema({
-    sku: {
+    shoesId: {
         type: String,
         required: true,
-        min: 3,
     },
     sizeValue: {
         type: String,

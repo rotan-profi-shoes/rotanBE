@@ -13,8 +13,8 @@ router.post('/add', verify, async (req, res) => {
     }
 });
 
-router.get('/:sku', verify, async (req, res) => {
-    const sizes = await Size.find({ sku: req.params.sku });
+router.get('/:id', verify, async (req, res) => {
+    const sizes = await Size.find({ _id: req.params.id });
 
     try {
         res.send(sizes);
@@ -22,5 +22,15 @@ router.get('/:sku', verify, async (req, res) => {
         res.status(400).send(err);
     }    
 });
+
+router.delete('/:sku', verify, async (req, res) => {
+    const sizes = await Size.deleteMany({ sku: req.params.sku });
+
+    try {
+        res.send(sizes);
+    } catch(err) {
+        res.status(400).send(err);
+    }    
+})
 
 module.exports = router;

@@ -265,7 +265,7 @@ router.post('/add', verify, async (req, res) => {
     try {
         const savedShoe = await shoe.save();
 
-        res.send({ sku: savedShoe.sku });
+        res.send({ _id: savedShoe._id });
     } catch(err) {
         res.status(400).send(err);
     };
@@ -281,14 +281,24 @@ router.get('/', verify, async (req, res) => {
     }    
 });
 
-router.get('/find/:sku', verify, async (req, res) => {
-    const shoes = await Shoe.findOne({ sku: req.params.sku });
+router.get('/find/:id', verify, async (req, res) => {
+    const shoes = await Shoe.findOne({ _id: req.params.id });
 
     try {
         res.send(shoes);
     } catch(err) {
         res.status(400).send(err);
     }    
+});
+
+router.delete('/:id', verify, async (req, res) => {
+    const shoes = await Shoe.findByIdAndDelete({ _id: req.params.id });
+
+    try {
+        res.send(shoes);
+    } catch(err) {
+        res.status(400).send(err);
+    }
 });
 
 router.get('/gender-types', verify, async (req, res) => {
