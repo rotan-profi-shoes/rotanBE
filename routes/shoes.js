@@ -291,6 +291,7 @@ router.get('/find/:id', verify, async (req, res) => {
     }    
 });
 
+
 router.delete('/:id', verify, async (req, res) => {
     const shoes = await Shoe.findByIdAndDelete({ _id: req.params.id });
 
