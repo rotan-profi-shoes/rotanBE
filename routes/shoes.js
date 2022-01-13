@@ -244,7 +244,7 @@ router.post('/add', verify, async (req, res) => {
     const soleDescription = soleDescriptionTypes.find(soleDescription => soleDescription.id === req.body.soleDescription);
 
     const shoe = new Shoe({
-        sku: req.body.sku,
+        sku: req.body.sku.toUpperCase(),
         name: req.body.name,
         gender: gender,
         form: form, 
@@ -271,6 +271,43 @@ router.post('/add', verify, async (req, res) => {
     };
 });
 
+router.put('/update-one/:id', verify, async (req, res) => {
+    const UpdatableShoes = await Shoe.findOne({ _id: req.params.id });
+
+    const gender = genderTypes.find(gender => gender.id === req.body.gender);
+    const form = formTypes.find(form => form.id === req.body.form);
+    const shoesClass = shoesClassTypes.find(shoesClass => shoesClass.id === req.body.shoesClass);
+    const zertifikat = zertifikatTypes.find(zertifikat => zertifikat.id === req.body.zertifikat);
+    const color = colorTypes.find(color => color.id === req.body.color);
+    const modification = modificationTypes .find(modification => modification.id === req.body.modification);
+    const material = materialTypes.find(material => material.id === req.body.material);
+    const sole = soleTypes.find(sole => sole.id === req.body.sole);
+    const upperLeather = upperLeatherTypes.find(upperLeather => upperLeather.id === req.body.upperLeather);
+    const description = descriptionTypes.find(description => description.id === req.body.description);
+    const capDescription = capDescriptionTypes.find(capDescription => capDescription.id === req.body.capDescription);
+    const soleDescription = soleDescriptionTypes.find(soleDescription => soleDescription.id === req.body.soleDescription);
+
+    const updatedShoes = await Shoe.findOneAndUpdate({ _id: UpdatableShoes._id.valueOf() }, {
+        name: req.body.name,
+        gender: gender,
+        form: form, 
+        shoesClass: shoesClass,
+        zertifikat: zertifikat,
+        color: color,
+        modification: modification,
+        material: material,
+        sole: sole,
+        description: description,
+        upperLeather: upperLeather,
+        capDescription: capDescription,
+        soleDescription: soleDescription,
+        img1: req.body.img1,
+        img2: req.body.img2,
+    });
+
+    res.send({ updatedShoes });
+})
+
 router.get('/', verify, async (req, res) => {
     const shoes = await Shoe.find();
 
@@ -290,7 +327,6 @@ router.get('/find/:id', verify, async (req, res) => {
         res.status(400).send(err);
     }    
 });
-
 
 router.delete('/:id', verify, async (req, res) => {
     const shoes = await Shoe.findByIdAndDelete({ _id: req.params.id });
