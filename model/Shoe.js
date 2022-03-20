@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const shoeSchema = new mongoose.Schema({
+    parentSku: {
+        type: {},
+        required: true,
+    },
     sku: {
         type: String,
         required: true,

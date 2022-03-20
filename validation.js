@@ -22,6 +22,7 @@ const loginValidation = (data) => {
 
 const shoeValidation = (data) => {
     const schema = Joi.object({
+        parentSku: Joi.required(),
         sku: Joi.string().min(3).required(),
         name: Joi.string().required(),
         gender: Joi.required(),

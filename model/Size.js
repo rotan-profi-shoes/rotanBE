@@ -1,4 +1,3 @@
-const { string } = require('@hapi/joi');
 const mongoose = require('mongoose');
 
 const sizeSchema = new mongoose.Schema({
