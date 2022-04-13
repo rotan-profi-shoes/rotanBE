@@ -63,8 +63,8 @@ router.get('/find-one/:id', verify, async (req, res) => {
   }
 });
 
-router.delete('/:sku', verify, async (req, res) => {
-  const sizes = await Size.deleteMany({sku: req.params.sku});
+router.delete('/:id', verify, async (req, res) => {
+  const sizes = await Size.deleteMany({shoesId: req.params.id});
 
   try {
     res.send(sizes);
