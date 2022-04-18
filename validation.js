@@ -37,8 +37,7 @@ const shoeValidation = (data) => {
         description: Joi.required(),
         capDescription: Joi.required(),
         soleDescription: Joi.required(),
-        img1: Joi.string().required(),
-        img2: Joi.string().required(),
+        photos: Joi.required(),
         shoesSizes: Joi.required(),
     });
 

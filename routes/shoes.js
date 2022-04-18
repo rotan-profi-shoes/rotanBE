@@ -262,8 +262,9 @@ router.post('/add', verify, async (req, res) => {
     upperLeather: upperLeather,
     capDescription: capDescription,
     soleDescription: soleDescription,
-    img1: req.body.img1,
-    img2: req.body.img2,
+    photos: req.body.photos,
+    // img1: req.body.img1,
+    // img2: req.body.img2,
   });
 
   try {
@@ -309,8 +310,6 @@ router.put('/update-one/:id', verify, async (req, res) => {
     upperLeather: upperLeather,
     capDescription: capDescription,
     soleDescription: soleDescription,
-    img1: req.body.img1,
-    img2: req.body.img2,
   });
 
   res.send({updatedShoes});
@@ -348,8 +347,8 @@ router.post('/copy/:id', verify, async (req, res) => {
       upperLeather: skuToCopy.upperLeather,
       capDescription: skuToCopy.capDescription,
       soleDescription: skuToCopy.soleDescription,
-      img1: skuToCopy.img1,
-      img2: skuToCopy.img2,
+      // img1: skuToCopy.img1,
+      // img2: skuToCopy.img2,
   });
 
   try {
