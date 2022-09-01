@@ -39,6 +39,7 @@ const shoeValidation = (data) => {
         soleDescription: Joi.required(),
         photos: Joi.required(),
         shoesSizes: Joi.required(),
+        shoesType: Joi.required(),
     });
 
     return schema.validate(data);

@@ -43,7 +43,7 @@ router.put('/update-one/:id', verify, async (req, res) => {
 });
 
 router.get('/:id', verify, async (req, res) => {
-  const sizes = await Size.find({shoesId: req.params.id});
+  const sizes = await Size.find({ shoesId: req.params.id });
 
   try {
     res.send(sizes);

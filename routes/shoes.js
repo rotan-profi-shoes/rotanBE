@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {shoeValidation} = require('../validation');
 const verify = require('./verifyToken');
 const Shoe = require('../model/Shoe');
+const Size = require('../model/Size');
 const ParentSku = require('../model/ParentSku');
 
 const genderTypes = [
@@ -222,6 +223,24 @@ const soleDescriptionTypes = [
   },
 ];
 
+const shoesTypes = [
+  {
+    id: '9501',
+    name: 'Medical',
+  },
+  {
+    id: '9502',
+    name: 'Work',
+  },
+  {
+    id: '9503',
+    name: 'Safety',
+  },
+  {
+    id: '9504',
+    name: 'Accessories',
+  },
+];
 
 router.post('/add', verify, async (req, res) => {
   const {error} = shoeValidation(req.body);
@@ -262,6 +281,7 @@ router.post('/add', verify, async (req, res) => {
     upperLeather: upperLeather,
     capDescription: capDescription,
     soleDescription: soleDescription,
+    shoesType: req.body.shoesType,
     photos: req.body.photos,
   });
 
@@ -272,7 +292,6 @@ router.post('/add', verify, async (req, res) => {
   } catch (err) {
     res.status(400).send(err);
   }
-  ;
 });
 
 router.put('/update-one/:id', verify, async (req, res) => {
@@ -308,14 +327,29 @@ router.put('/update-one/:id', verify, async (req, res) => {
     upperLeather: upperLeather,
     capDescription: capDescription,
     soleDescription: soleDescription,
+    shoesType: req.body.shoesType,
     photos: req.body.photos,
+  }, {
+    new: true,
   });
 
   res.send({updatedShoes});
 })
 
-router.get('/', verify, async (req, res) => {
-  const shoes = await Shoe.find();
+router.get('/', async (req, res) => {
+  console.log(req.query);
+  let shoes = await Shoe.find({ 'gender.id': req.query.gender}).lean();
+
+  shoes = await Promise.all(shoes.map(async (shoe) => {
+    return {
+      ...shoe,
+      additionalData: {
+        sizes: await Size.find({ shoesId: shoe._id }),
+        similarModels: await Shoe.find({ parentSku: shoe.parentSku }),
+      }
+    }
+
+  }));
 
   try {
     res.send(shoes);
@@ -362,7 +396,7 @@ router.get('/grouped', verify, async (req, res) => {
   const shoes = await Shoe.find();
 
   const shoesGroupedBySku = parentSku.reduce((acc, curr) => {
-    acc[curr.parentSku] = [];
+    acc[curr.parentSku] = [];   
 
     return acc;
   }, {});
@@ -409,7 +443,7 @@ router.delete('/:id', verify, async (req, res) => {
   }
 });
 
-router.get('/gender-types', verify, async (req, res) => {
+router.get('/gender-types', async (req, res) => {
   res.send(genderTypes);
 });
 
@@ -425,7 +459,7 @@ router.get('/zertifikat-types', verify, async (req, res) => {
   res.send(zertifikatTypes);
 });
 
-router.get('/color-types', verify, async (req, res) => {
+router.get('/color-types', async (req, res) => {
   res.send(colorTypes);
 });
 
@@ -459,6 +493,10 @@ router.get('/cap-description-types', verify, async (req, res) => {
 
 router.get('/sole-description-types', verify, async (req, res) => {
   res.send(soleDescriptionTypes);
+});
+
+router.get('/shoes-types', verify, async (req, res) => {
+  res.send(shoesTypes);
 });
 
 module.exports = router;
