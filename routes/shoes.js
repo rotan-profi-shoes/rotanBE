@@ -337,8 +337,19 @@ router.put('/update-one/:id', verify, async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-  console.log(req.query);
-  let shoes = await Shoe.find({ 'gender.id': req.query.gender}).lean();
+  let filters = {};
+
+  if (req.query?.gender) {
+    filters['gender.id'] = req.query.gender;
+  }
+
+  if (req.query?.color) {
+    filters['color.id'] = req.query.color;
+  }
+
+  let shoes = await Shoe.find({
+    ...filters,
+  }).lean();
 
   shoes = await Promise.all(shoes.map(async (shoe) => {
     return {
@@ -423,7 +434,7 @@ router.get('/grouped', verify, async (req, res) => {
   }
 });
 
-router.get('/find/:id', verify, async (req, res) => {
+router.get('/find/:id', async (req, res) => {
   const shoes = await Shoe.findOne({_id: req.params.id});
 
   try {
