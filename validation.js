@@ -45,6 +45,27 @@ const shoeValidation = (data) => {
     return schema.validate(data);
 };
 
+const orderValidation = (data) => {
+    const schema = Joi.object({
+        firstName: Joi.string().required(),
+        lastName: Joi.string().required(),
+        addressLine: Joi.string().required(),
+        postalCode: Joi.string().required(),
+        city: Joi.string().required(),
+        country: Joi.string().required(),
+        email: Joi.string().required(),
+        phoneNumber: Joi.string().required(),
+        deliveryMethod: Joi.string().required(),
+        paymentMethod: Joi.string().required(),
+        products: Joi.required(),
+        priceForProducts: Joi.string().required(),
+        deliveryPrice: Joi.string().required(),
+        totalPriceForProducts: Joi.string().required(),
+    });
+
+    return schema.validate(data);
+}
+
 const sizeValidation = (data) => {
     const schema = Joi.object({
         shoesId: Joi.string().required(),
@@ -60,3 +81,4 @@ module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
 module.exports.shoeValidation = shoeValidation;
 module.exports.sizeValidation = sizeValidation;
+module.exports.orderValidation = orderValidation;

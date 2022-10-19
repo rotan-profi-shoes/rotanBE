@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {shoeValidation} = require('../validation');
+const { shoeValidation } = require('../validation');
 const verify = require('./verifyToken');
 const Shoe = require('../model/Shoe');
 const Size = require('../model/Size');
@@ -339,6 +339,10 @@ router.put('/update-one/:id', verify, async (req, res) => {
 router.get('/', async (req, res) => {
   let filters = {};
 
+  if (req.query?.shoesType) {
+    filters['shoesType.id'] = req.query.shoesType;
+  }
+
   if (req.query?.gender) {
     filters['gender.id'] = req.query.gender;
   }
@@ -506,7 +510,7 @@ router.get('/sole-description-types', verify, async (req, res) => {
   res.send(soleDescriptionTypes);
 });
 
-router.get('/shoes-types', verify, async (req, res) => {
+router.get('/shoes-types', async (req, res) => {
   res.send(shoesTypes);
 });
 
