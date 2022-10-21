@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node_modules/.bin/nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +23,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.20"
   }
 }
