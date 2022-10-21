@@ -1,8 +1,7 @@
 const router = require('express').Router();
-const {orderValidation} = require('../validation');
+const { orderValidation } = require('../validation');
 const verify = require('./verifyToken');
 const Order = require('../model/Order');
-const Joi = require("@hapi/joi");
 
 router.post('/create', async (req, res) => {
   const {error} = orderValidation(req.body);
@@ -32,6 +31,16 @@ router.post('/create', async (req, res) => {
     res.send({
       _id: savedOrder._id,
     });
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.get('/', verify, async (req, res) => {
+  const orders = await Order.find();
+
+  try {
+    res.send(orders.reverse());
   } catch (err) {
     res.status(400).send(err);
   }
