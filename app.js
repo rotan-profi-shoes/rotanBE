@@ -20,7 +20,10 @@ app.use(cors({
 
 mongoose.connect(
   process.env.DB_CONNECT,
-  () => console.log('Connnected to DB'),
+  () => {
+    console.log('-------------');
+    console.log('Connnected to DB');
+  },
 );
 
 app.use(express.json());
