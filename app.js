@@ -33,4 +33,8 @@ app.use('/api/parent-sku', parentSkuRoute);
 app.use('/api/s3', s3Route);
 app.use('/api/order', orderRoute);
 
-app.listen(process.env.PORT, () => console.log('Server is up!'));
+app.listen(process.env.PORT, () => {
+  console.log('-------------');
+  console.log('Server is up!');
+  console.log('-------------');
+});
