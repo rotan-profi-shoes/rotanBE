@@ -21,7 +21,6 @@ app.use(cors({
 mongoose.connect(
   process.env.DB_CONNECT,
   () => {
-    console.log('-------------');
     console.log('Connnected to DB');
   },
 );
@@ -37,7 +36,7 @@ app.use('/api/s3', s3Route);
 app.use('/api/order', orderRoute);
 
 app.listen(process.env.PORT, () => {
-  console.log('-------------');
-  console.log('Server is up!');
-  console.log('-------------');
+  console.log('-----------------');
+  console.log('| Server is up! |');
+  console.log('-----------------');
 });
